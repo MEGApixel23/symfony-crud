@@ -23,6 +23,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+                success_handler: redirect.after.login
             pattern: ^/
             http_basic: ~
             provider: db_provider
@@ -39,4 +40,5 @@ security:
 
     access_control:
         - {path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - {path: ^/, roles: [ROLE_USER, ROLE_ADMIN]}
+        - {path: ^/user/me, roles: ROLE_USER}
+        - {path: ^/user, roles: ROLE_ADMIN}

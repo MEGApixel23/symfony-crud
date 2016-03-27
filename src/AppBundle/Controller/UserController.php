@@ -72,6 +72,21 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
+     * @Route("/me", name="user_me")
+     * @Method("GET")
+     */
+    public function showMeAction()
+    {
+        $user = $this->getUser();
+
+        return $this->render('user/me.html.twig', array(
+            'user' => $user
+        ));
+    }
+
+    /**
+     * Finds and displays a User entity.
+     *
      * @Route("/{id}", name="user_show")
      * @Method("GET")
      */
