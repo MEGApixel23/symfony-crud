@@ -1,16 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>User creation</h1>
+    <h1 class="text-center">Creating of a new user</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <div class="row row-centered">
+        <div class="col-centered col-md-5">
+            {{ form_start(form) }}
+            <a href="{{ path('user_index') }}">< Back to the list</a>
+            <table class="table table-info">
+                <tbody>
+                <tr>
+                    <th>Username</th>
+                    <td>
+                        {{ form_widget(form.username) }}
+                        <div class="errors">{{ form_errors(form.username) }}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>
+                        {{ form_widget(form.email) }}
+                        <div class="errors">{{ form_errors(form.email) }}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                    <td>
+                        {{ form_widget(form.password) }}
+                        <div class="errors">{{ form_errors(form.password) }}</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-primary" value="Save">
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}
