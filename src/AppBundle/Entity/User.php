@@ -4,26 +4,29 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="index_username", columns={"username"}), @ORM\UniqueConstraint(name="index_email", columns={"email"})})
  * @ORM\Entity
+ * @UniqueEntity("username")
+ * @UniqueEntity("email")
  */
 class User implements AdvancedUserInterface
 {
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=128, nullable=false)
+     * @ORM\Column(name="username", type="string", length=128, nullable=false, unique=true)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=128, nullable=false)
+     * @ORM\Column(name="email", type="string", length=128, nullable=false, unique=true)
      */
     private $email;
 
@@ -102,7 +105,9 @@ class User implements AdvancedUserInterface
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        if (!is_null($password)) {
+            $this->password = $password;
+        }
 
         return $this;
     }

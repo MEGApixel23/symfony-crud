@@ -1,21 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>User edit</h1>
+    <h1 class="text-center">Editing user "{{ user.username }}"</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="row row-centered">
+        <div class="col-centered col-md-5">
+            {{ form_start(edit_form) }}
+                <a href="{{ path('user_index') }}">< Back to the list</a>
+                <table class="table table-info">
+                    <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <td>{{ user.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <td>
+                            {{ form_widget(edit_form.username) }}
+                            <div class="errors">{{ form_errors(edit_form.username) }}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>
+                            {{ form_widget(edit_form.email) }}
+                            <div class="errors">{{ form_errors(edit_form.email) }}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Password</th>
+                        <td>
+                            {{ form_widget(edit_form.password) }}
+                            <div class="errors">{{ form_errors(edit_form.password) }}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Role</th>
+                        <td>{{ user.role }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <input type="submit" class="btn btn-primary" value="Save">
+            {{ form_end(edit_form) }}
+        </div>
+    </div>
 {% endblock %}

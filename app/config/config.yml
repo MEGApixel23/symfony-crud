@@ -43,7 +43,7 @@ doctrine:
         default_connection: pgsql
         connections:
             pgsql:
-                driver:   pdo_pgsql
+                driver:   pdo_mysql
                 host:     "%database_host%"
                 port:     "%database_port%"
                 dbname:   "%database_name%"

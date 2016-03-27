@@ -88,11 +88,20 @@ class UserController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            // Setting new password
+            $newPassword = $editForm->get('password')->getData();
+            if ($newPassword)  {
+                $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+                $encryptedPassword = $encoder->encodePassword($newPassword, $user->getSalt());
+                $user->setPassword($encryptedPassword);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_index', array('id' => $user->getId()));
         }
 
         return $this->render('user/edit.html.twig', array(
