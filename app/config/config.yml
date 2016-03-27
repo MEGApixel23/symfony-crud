@@ -43,7 +43,7 @@ doctrine:
         default_connection: pgsql
         connections:
             pgsql:
-                driver:   pdo_mysql
+                driver:   pdo_pgsql
                 host:     "%database_host%"
                 port:     "%database_port%"
                 dbname:   "%database_name%"
@@ -58,10 +58,22 @@ doctrine:
         #     path:     "%database_path%"
 
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
+        auto_generate_proxy_classes: %kernel.debug%
+        #auto_mapping: true
+        default_entity_manager: default
+        entity_managers:
+            default:
+                metadata_cache_driver: apc
+                result_cache_driver: memcache
+                query_cache_driver: apc
+                connection: pgsql
+                mappings:
+                    AppBundle: { type: annotation, dir: Entity/ }
 
+#    orm:
+#        auto_generate_proxy_classes: "%kernel.debug%"
+#        naming_strategy: doctrine.orm.naming_strategy.underscore
+#        auto_mapping: true
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -76,3 +88,11 @@ doctrine_migrations:
     namespace: Application\Migrations
     table_name: migration_versions
     name: Application Migrations
+
+lsw_memcache:
+    session:
+        pool: default
+    pools:
+        default:
+            servers:
+              - { host: localhost, tcp_port: 11211 }
