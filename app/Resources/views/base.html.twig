@@ -4,10 +4,18 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset('/css/bootstrap-3.3.6-dist/css/bootstrap.min.css') }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{ asset('/css/main.css') }}" type="text/css" media="all" />
+
+        <script type="text/javascript" src="{{ asset('/js/jquery-1.12.2.min.js') }}"></script>
+        <script src="{{ asset('/css/bootstrap-3.3.6-dist/js/bootstrap.min.js') }}"></script>
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
